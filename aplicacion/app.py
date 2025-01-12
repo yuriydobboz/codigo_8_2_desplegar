@@ -371,3 +371,11 @@ def load_user(user_id):
 @app.errorhandler(404)
 def page_not_found(error):
     return render_template("error.html", error="Página no encontrada..."), 404
+
+port = 5432
+
+if __name__ == '__main__':
+    db.init_app(app)
+    with app.app_context():
+        db.create_all()  # Esto crea todas las tablas definidas en los modelos
+    app.run(host='0.0.0.0', debug=True, port=port)
